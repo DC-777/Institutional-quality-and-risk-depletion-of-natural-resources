@@ -1,0 +1,55 @@
+'Import the sheet "Sample" from the excel file "Temperature and external factors. Database. v3" to Stata. We have used Stata 14.2 to estimate our econometric models.
+
+
+xtset IDn Year
+
+
+---------------------------------------------------------
+Table 4. Explaining the quality of forests, land, and soil through the features identified by ERT model
+---------------------------------------------------------
+
+xtreg ForestLandandSoil l.ProductivityandCompetitiveness l.LabourForceEngagement l.Transport l.PoliticalAccountability l.Energy l.PriceDistortions l.Water l.InvestorProtection l.RegulatoryQuality l.ImportTariffBarriers i.Year, fe robust
+
+xtcsd, pesaran
+
+xtreg ForestLandandSoil l.ProductivityandCompetitiveness l.LabourForceEngagement l.Transport l.PoliticalAccountability l.Energy l.PriceDistortions l.Water l.InvestorProtection l.RegulatoryQuality l.ImportTariffBarriers l.ContractEnforcement l.DomesticMarketContestability l.ExecutiveConstraints l.Dynamism l.GovernmentIntegrity  i.Year, fe robust
+
+xtcsd, pesaran
+
+xtreg ForestLandandSoil l.ProductivityandCompetitiveness l.LabourForceEngagement l.Transport l.PoliticalAccountability l.Energy l.PriceDistortions l.Water l.InvestorProtection l.RegulatoryQuality l.ImportTariffBarriers l.ContractEnforcement l.DomesticMarketContestability l.ExecutiveConstraints l.Dynamism l.GovernmentIntegrity l.OpenMarketScale l.PropertyRights l.BorderAdministration l.RuleofLaw l.LabourMarketFlexibility i.Year, fe robust
+
+xtcsd, pesaran
+
+
+
+xtabond2  ForestLandandSoil l.ForestLandandSoil l.ProductivityandCompetitiveness l.LabourForceEngagement l.Transport l.PoliticalAccountability l.Energy l.PriceDistortions l.Water l.InvestorProtection l.RegulatoryQuality l.ImportTariffBarriers  i.Year, gmm(l.ForestLandandSoil, collapse lag (1 1)) gmm(l.PoliticalAccountability l.RegulatoryQuality, collapse lag (3 3)) iv(l.ProductivityandCompetitiveness l.LabourForceEngagement l.Transport l.Energy l.PriceDistortions l.Water l.InvestorProtection l.ImportTariffBarriers i.Year, eq(lev)) robust two ar(2)
+
+xtabond2  ForestLandandSoil l.ForestLandandSoil l.ProductivityandCompetitiveness l.LabourForceEngagement l.Transport l.PoliticalAccountability l.Energy l.PriceDistortions l.Water l.InvestorProtection l.RegulatoryQuality l.ImportTariffBarriers l.ContractEnforcement l.DomesticMarketContestability l.ExecutiveConstraints l.Dynamism l.GovernmentIntegrity  i.Year, gmm(l.ForestLandandSoil, collapse lag (1 1)) gmm(l.PoliticalAccountability l.RegulatoryQuality l.ExecutiveConstraints l.GovernmentIntegrity , collapse lag (3 3)) iv(l.ProductivityandCompetitiveness l.LabourForceEngagement l.Transport l.Energy l.PriceDistortions l.Water l.InvestorProtection l.ImportTariffBarriers l.ContractEnforcement l.DomesticMarketContestability l.Dynamism i.Year, eq(lev)) robust two ar(2)
+
+xtabond2  ForestLandandSoil l.ForestLandandSoil l.ProductivityandCompetitiveness l.LabourForceEngagement l.Transport l.PoliticalAccountability l.Energy l.PriceDistortions l.Water l.InvestorProtection l.RegulatoryQuality l.ImportTariffBarriers l.ContractEnforcement l.DomesticMarketContestability l.ExecutiveConstraints l.Dynamism l.GovernmentIntegrity l.OpenMarketScale l.PropertyRights l.BorderAdministration l.RuleofLaw l.LabourMarketFlexibility i.Year, gmm(l.ForestLandandSoil, collapse lag (1 1)) gmm(l.PoliticalAccountability l.ExecutiveConstraints l.GovernmentIntegrity l.RegulatoryQuality l.RuleofLaw, collapse lag (3 3)) iv(l.ProductivityandCompetitiveness l.LabourForceEngagement l.Transport l.Energy l.PriceDistortions l.Water l.InvestorProtection l.ImportTariffBarriers l.ContractEnforcement l.DomesticMarketContestability l.Dynamism l.OpenMarketScale l.PropertyRights l.BorderAdministration l.LabourMarketFlexibility i.Year, eq(lev)) robust two ar(2)
+
+
+
+
+---------------------------------------------------------
+Table 5. Explaining the quality of freshwater resources through the features identified by ERT model
+---------------------------------------------------------
+xtreg Freshwater l.PoliticalAccountability l.ExecutiveConstraints l.GovernmentIntegrity l.ProductivityandCompetitiveness l.LabourForceEngagement l.DomesticMarketContestability l.RegulatoryQuality l.GovernmentEffectiveness l.Energy l.ImportTariffBarriers i.Year, fe robust
+
+xtcsd, pesaran
+
+xtreg Freshwater l.PoliticalAccountability l.ExecutiveConstraints l.GovernmentIntegrity l.ProductivityandCompetitiveness l.LabourForceEngagement l.DomesticMarketContestability l.RegulatoryQuality l.GovernmentEffectiveness l.Energy l.ImportTariffBarriers  l.Water l.PriceDistortions l.OpenMarketScale l.Transport l.RuleofLaw i.Year, fe robust
+
+xtcsd, pesaran
+
+xtreg Freshwater l.PoliticalAccountability l.ExecutiveConstraints l.GovernmentIntegrity l.ProductivityandCompetitiveness l.LabourForceEngagement l.DomesticMarketContestability l.RegulatoryQuality l.GovernmentEffectiveness l.Energy l.ImportTariffBarriers  l.Water l.PriceDistortions l.OpenMarketScale l.Transport l.RuleofLaw l.InvestorProtection l.Dynamism  l.PropertyRights l.FinancingEcosystem l.LabourMarketFlexibility i.Year, fe robust
+
+xtcsd, pesaran
+
+
+xtabond2  Freshwater l.Freshwater l.PoliticalAccountability l.ExecutiveConstraints l.GovernmentIntegrity l.ProductivityandCompetitiveness l.LabourForceEngagement l.DomesticMarketContestability l.RegulatoryQuality l.GovernmentEffectiveness l.Energy l.ImportTariffBarriers i.Year  , gmm(l.Freshwater, collapse lag (1 1)) gmm(l.PoliticalAccountability l.ExecutiveConstraints l.GovernmentIntegrity l.RegulatoryQuality l.GovernmentEffectiveness, collapse lag (3 3)) iv(l.ProductivityandCompetitiveness l.LabourForceEngagement l.DomesticMarketContestability l.Energy l.ImportTariffBarriers  i.Year, eq(lev)) robust two ar(2)
+
+xtabond2  Freshwater l.Freshwater l.PoliticalAccountability l.ExecutiveConstraints l.GovernmentIntegrity l.ProductivityandCompetitiveness l.LabourForceEngagement l.DomesticMarketContestability l.RegulatoryQuality l.GovernmentEffectiveness l.Energy l.ImportTariffBarriers l.Water l.PriceDistortions l.OpenMarketScale l.Transport l.RuleofLaw i.Year  , gmm(l.Freshwater, collapse lag (1 1)) gmm(l.PoliticalAccountability l.ExecutiveConstraints l.GovernmentIntegrity l.RegulatoryQuality l.GovernmentEffectiveness l.RuleofLaw, collapse lag (3 3)) iv(l.ProductivityandCompetitiveness l.LabourForceEngagement l.DomesticMarketContestability l.Energy l.ImportTariffBarriers l.Water l.PriceDistortions l.OpenMarketScale l.Transport i.Year, eq(lev)) robust two ar(2)
+
+
+xtabond2  Freshwater l.Freshwater l.PoliticalAccountability l.ExecutiveConstraints l.GovernmentIntegrity l.ProductivityandCompetitiveness l.LabourForceEngagement l.DomesticMarketContestability l.RegulatoryQuality l.GovernmentEffectiveness l.Energy l.ImportTariffBarriers l.Water l.PriceDistortions l.OpenMarketScale l.Transport l.RuleofLaw l.InvestorProtection l.Dynamism l.PropertyRights l.FinancingEcosystem l.LabourMarketFlexibility i.Year  , gmm(l.Freshwater, collapse lag (1 1)) gmm(l.PoliticalAccountability l.ExecutiveConstraints l.GovernmentIntegrity l.RegulatoryQuality l.GovernmentEffectiveness l.RuleofLaw, collapse lag (3 3)) iv(l.ProductivityandCompetitiveness l.LabourForceEngagement l.DomesticMarketContestability l.Energy l.ImportTariffBarriers l.Water l.PriceDistortions l.OpenMarketScale l.Transport l.InvestorProtection l.Dynamism l.PropertyRights l.FinancingEcosystem l.LabourMarketFlexibility i.Year, eq(lev)) robust two ar(2)
